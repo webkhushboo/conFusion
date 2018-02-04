@@ -2,7 +2,7 @@ import { FavoriteProvider } from './../../providers/favorite/favorite';
 import { Comment } from './../../shared/comment';
 import { Dish } from './../../shared/dish';
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -26,7 +26,8 @@ export class DishdetailPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   @Inject('BaseURL') private BaseURL,
-   private favoriteService :FavoriteProvider) {
+   private favoriteService :FavoriteProvider,
+  private toastCtrl :ToastController) {
     this.dish = navParams.get('dish');
   //whenver disdetail page is load we will check if dish is user's favorite or not
     this.favorite = this.favoriteService.isFavorite(this.dish.id);
@@ -47,5 +48,9 @@ export class DishdetailPage {
   addToFavorites(){
     console.log('Adding to favorites', this.dish.id);
     this.favorite =this.favoriteService.addFavorite(this.dish.id);
+    this.toastCtrl.create({
+     message : 'Dish ' +this.dish.id+ ' added as a favorite successfully',
+     duration :3000
+    }).present();
   }
 }

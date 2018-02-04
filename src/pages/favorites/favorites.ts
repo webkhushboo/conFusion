@@ -2,7 +2,7 @@ import { baseURL } from './../../shared/baseurl';
 import { Dish } from './../../shared/dish';
 import { FavoriteProvider } from './../../providers/favorite/favorite';
 import { Component ,OnInit ,Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ItemSliding} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ItemSliding,ToastController} from 'ionic-angular';
 /**
  * Generated class for the FavoritesPage page.
  *
@@ -22,6 +22,7 @@ export class FavoritesPage implements OnInit{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private favoriteService :FavoriteProvider,
+  private toastCtrl:ToastController,
   @Inject('BaseURL') private BaseURL
   ) {
   }
@@ -40,7 +41,10 @@ export class FavoritesPage implements OnInit{
     this.favoriteService.deleteFavorite(id)
     .subscribe(favorites => this.favorites =favorites,
       errmess => this.errMess =errmess);
-
+      this.toastCtrl.create({
+        message : 'Dish ' +id + ' deleted successfully',
+        duration :3000
+      }).present(); // present method will show the toast notification
       item.close();
   }
 }
