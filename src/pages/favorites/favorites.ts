@@ -2,7 +2,7 @@ import { baseURL } from './../../shared/baseurl';
 import { Dish } from './../../shared/dish';
 import { FavoriteProvider } from './../../providers/favorite/favorite';
 import { Component ,OnInit ,Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ItemSliding,ToastController} from 'ionic-angular';
+import { IonicPage, NavController,LoadingController, NavParams ,ItemSliding,ToastController} from 'ionic-angular';
 /**
  * Generated class for the FavoritesPage page.
  *
@@ -23,6 +23,7 @@ export class FavoritesPage implements OnInit{
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private favoriteService :FavoriteProvider,
   private toastCtrl:ToastController,
+  private loadingCtrl :LoadingController,
   @Inject('BaseURL') private BaseURL
   ) {
   }
@@ -38,13 +39,25 @@ export class FavoritesPage implements OnInit{
   
   deleteFavorite(item : ItemSliding, id:number){
     console.log('delete',id);
+    let loading = this.loadingCtrl.create({
+      content:'Deleting....'
+    });
+    
+    let toast = this.toastCtrl.create({
+      message : 'Dish ' +id + ' deleted successfully',
+      duration :3000       
+    });
+
+    loading.present();
+
     this.favoriteService.deleteFavorite(id)
-    .subscribe(favorites => this.favorites =favorites,
-      errmess => this.errMess =errmess);
-      this.toastCtrl.create({
-        message : 'Dish ' +id + ' deleted successfully',
-        duration :3000
-      }).present(); // present method will show the toast notification
+    .subscribe(favorites => {this.favorites =favorites,
+      loading.dismiss();toast.present();
+      },
+      errmess => {this.errMess =errmess;
+      loading.dismiss();
+    });
+      
       item.close();
   }
 }
