@@ -10,6 +10,7 @@ import { AboutPage } from './../pages/about/about';
 import { ContactPage } from './../pages/contact/contact';
 import { MenuPage } from './../pages/menu/menu';
 import { DishdetailPage } from './../pages/dishdetail/dishdetail';
+import {FavoritesPage} from './../pages/favorites/favorites'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DishProvider } from '../providers/dish/dish';
@@ -26,6 +27,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     AboutPage,
     MenuPage,
     ContactPage,
+    FavoritesPage,
     DishdetailPage
   ],
   imports: [
@@ -40,7 +42,8 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     AboutPage,
     MenuPage,
     ContactPage,
-    DishdetailPage
+    DishdetailPage,
+    FavoritesPage
   ],
   providers: [
     StatusBar,
