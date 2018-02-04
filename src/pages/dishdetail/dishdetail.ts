@@ -1,3 +1,4 @@
+import { FavoriteProvider } from './../../providers/favorite/favorite';
 import { Comment } from './../../shared/comment';
 import { Dish } from './../../shared/dish';
 import { Component, Inject } from '@angular/core';
@@ -21,10 +22,14 @@ export class DishdetailPage {
   errMess :string;
   avgstars : string;
   numcomments :number;
+  favorite: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  @Inject('BaseURL') private BaseURL) {
+  @Inject('BaseURL') private BaseURL,
+   private favoriteService :FavoriteProvider) {
     this.dish = navParams.get('dish');
+  //whenver disdetail page is load we will check if dish is user's favorite or not
+    this.favorite = this.favoriteService.isFavorite(this.dish.id);
     this.numcomments = this.dish.comments.length;
 
     let total = 0;
@@ -38,4 +43,9 @@ export class DishdetailPage {
     console.log('ionViewDidLoad DishdetailPage');
   }
 
+  //this function will be called from template in order to add dish to favorites list
+  addToFavorites(){
+    console.log('Adding to favorites', this.dish.id);
+    this.favorite =this.favoriteService.addFavorite(this.dish.id);
+  }
 }
