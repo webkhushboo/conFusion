@@ -1,8 +1,9 @@
+import { CommentPage } from './../comment/comment';
 import { FavoriteProvider } from './../../providers/favorite/favorite';
 import { Comment } from './../../shared/comment';
 import { Dish } from './../../shared/dish';
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ActionSheetController, NavParams, ToastController, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -27,7 +28,9 @@ export class DishdetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   @Inject('BaseURL') private BaseURL,
    private favoriteService :FavoriteProvider,
-  private toastCtrl :ToastController) {
+  private toastCtrl :ToastController,
+  private actionSheetCtrl :ActionSheetController,
+  private modalCtrl :ModalController) {
     this.dish = navParams.get('dish');
   //whenver disdetail page is load we will check if dish is user's favorite or not
     this.favorite = this.favoriteService.isFavorite(this.dish.id);
@@ -53,4 +56,42 @@ export class DishdetailPage {
      duration :3000
     }).present();
   }
+  openActionSheet(){
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'Select actions',
+        buttons: [
+          {
+            text: 'Add to Favorites',
+            handler: () => {
+              this.addToFavorites();
+            }
+          },{
+            text: 'Add Comment',
+            handler: () => {
+              this.openCommentDialog();
+            }
+          },{
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+
+    openCommentDialog(){
+      let modal = this.modalCtrl.create(CommentPage);
+      modal.onDidDismiss(data => {
+        // Do things with data coming from modal, for instance :
+       
+        var currentDate = new Date().toDateString();
+        data["date"] =currentDate;
+        this.dish.comments.push(data);
+        console.log("Data on dish page :" , data);
+      });
+      modal.present();
+    }
 }
