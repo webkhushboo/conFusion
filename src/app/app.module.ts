@@ -18,6 +18,7 @@ import {ReservationPage} from './../pages/reservation/reservation'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {LocalNotifications} from '@ionic-native/local-notifications';
+import {EmailComposer} from '@ionic-native/email-composer';
 import { DishProvider } from '../providers/dish/dish';
 import { LeaderProvider } from '../providers/leader/leader';
 import { ProcessHttpmsgProvider } from '../providers/process-httpmsg/process-httpmsg';
@@ -62,6 +63,7 @@ import { CommentPage } from '../pages/comment/comment';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DishProvider,
     LeaderProvider,

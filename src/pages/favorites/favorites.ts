@@ -1,7 +1,7 @@
 import { baseURL } from './../../shared/baseurl';
 import { Dish } from './../../shared/dish';
 import { FavoriteProvider } from './../../providers/favorite/favorite';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, AlertController, LoadingController, NavParams, ItemSliding, ToastController } from 'ionic-angular';
 /**
  * Generated class for the FavoritesPage page.
@@ -24,15 +24,13 @@ export class FavoritesPage implements OnInit {
     private favoriteService: FavoriteProvider,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-    @Inject('BaseURL') private BaseURL
-  ) {
+    private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
     this.favoriteService.getFavorites()
       .subscribe(favorites => this.favorites = favorites,
-      errmess => this.errMess = errmess)
+        errmess => this.errMess = errmess)
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavoritesPage');
@@ -72,10 +70,10 @@ export class FavoritesPage implements OnInit {
                 this.favorites = favorites,
                   loading.dismiss(); toast.present();
               },
-              errmess => {
-                this.errMess = errmess;
-                loading.dismiss();
-              });
+                errmess => {
+                  this.errMess = errmess;
+                  loading.dismiss();
+                });
           }
         }
       ]
