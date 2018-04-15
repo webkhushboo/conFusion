@@ -1,14 +1,9 @@
 import { baseURL } from './../../shared/baseurl';
 import { Dish } from './../../shared/dish';
 import { FavoriteProvider } from './../../providers/favorite/favorite';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { IonicPage, NavController, AlertController, LoadingController, NavParams, ItemSliding, ToastController } from 'ionic-angular';
-/**
- * Generated class for the FavoritesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -24,6 +19,7 @@ export class FavoritesPage implements OnInit {
     private favoriteService: FavoriteProvider,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
+    @Inject('BaseURL') private BaseURL,
     private alertCtrl: AlertController) {
   }
 

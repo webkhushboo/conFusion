@@ -4,12 +4,6 @@ import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angul
 import {Dish} from '../../shared/dish';
 import { DishProvider } from './../../providers/dish/dish';
 import { DishdetailPage } from './../dishdetail/dishdetail';
-/**
- * Generated class for the MenuPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

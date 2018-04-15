@@ -3,7 +3,7 @@ import { DishProvider } from './../dish/dish';
 import { Observable } from 'rxjs/Observable';
 import { Dish } from './../../shared/dish';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class FavoriteProvider {
   favorites : Array<any>;
 
   constructor(public http: Http ,private dishService :DishProvider,
+  @Inject('BaseURL') private BaseURL,
    private localNotifications : LocalNotifications) {
     console.log('Hello FavoriteProvider Provider');
     this.favorites =[];
